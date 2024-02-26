@@ -1,3 +1,9 @@
+/* 
+SOURCES: 
+- https://www.geeksforgeeks.org/create-todo-app-using-reactjs/
+
+*/
+
 import './App.css';
 
 // App.js File 
@@ -10,7 +16,9 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup"; 
 import FormControl from "react-bootstrap/FormControl"; 
 import ListGroup from "react-bootstrap/ListGroup"; 
-  
+import Checkbox from "react-bootstrap/FormCheck";
+
+
 
 class App extends Component {
   constructor(props) {
@@ -76,7 +84,11 @@ class App extends Component {
         list: updatedTodos, 
     }); 
     } 
-  } 
+  }
+
+  toogleTask = (index) => {
+
+  }
 
   render() { 
       return ( 
@@ -98,7 +110,7 @@ class App extends Component {
                   <Col md={{ span: 5, offset: 4 }}> 
                       <InputGroup className="mb-3"> 
                           <FormControl 
-                              placeholder="Add item..."
+                              placeholder="Add a task..."
                               size="lg"
                               value={this.state.userInput} 
                               onChange={(item) => 
@@ -120,7 +132,6 @@ class App extends Component {
               <Row> 
                   <Col md={{ span: 5, offset: 4 }}> 
                       <ListGroup> 
-                          {/* map over and print items */} 
                           {this.state.list.map((item, index) => { 
                               return ( 
                                 <div key = {index} >  
@@ -130,7 +141,11 @@ class App extends Component {
                                       style={{display:"flex", 
                                               justifyContent:'space-between'
                                     }} 
-                                  > 
+                                  >
+                                    <Checkbox
+                                      checked={item.finished}
+                                      onChange={() => toggleTask(index)} 
+                                    >
                                       {item.value} 
                                       <span> 
                                       <Button style={{marginRight:"10px"}} 
@@ -142,7 +157,8 @@ class App extends Component {
                                       onClick={() => this.editItem(index)}> 
                                         Edit 
                                       </Button> 
-                                      </span> 
+                                      </span>
+                                  </Checkbox>
                                   </ListGroup.Item> 
                                 </div> 
                               ); 
@@ -155,28 +171,28 @@ class App extends Component {
   } 
 } 
 
+
 /* 
-function App() {
+function App() { 
+  const [userInput, setUserInput] = useState("")
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h2 className="heading">To-Do List</h2>
+        <form>
+          <ControlGroup fill={true} vertical={false}>
+            <InputGroup
+              placeholder="Add a task..."
+              value={userInput}
+              onChange={e => setUserInput(e.target.value)}
+            />
+            <Button type="submit" intent="primary">
+              Add
+            </Button>
+          </ControlGroup>
+        </form>
     </div>
-  );
-}
-
-*/
+  )
+} */
 
 export default App;
