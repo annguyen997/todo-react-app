@@ -1,12 +1,18 @@
 /* 
 SOURCES: 
 - https://www.geeksforgeeks.org/create-todo-app-using-reactjs/
+- https://www.codingdeft.com/posts/react-to-do-list/
 
 */
 
 import './App.css';
 
 // App.js File 
+import { useState } from "react"
+import useLocalStorage from "./useLocalStorage"
+import "./index.css"
+
+/* 
 import React, { Component } from "react"; 
 import "bootstrap/dist/css/bootstrap.css"; 
 import Container from "react-bootstrap/Container"; 
@@ -16,183 +22,112 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup"; 
 import FormControl from "react-bootstrap/FormControl"; 
 import ListGroup from "react-bootstrap/ListGroup"; 
-import Checkbox from "react-bootstrap/FormCheck";
+import Checkbox from "react-bootstrap/FormCheck"; */ 
 
+function App() {
+  const [userInput, setUserInput] = useState("")
 
+  const [todoList, setTodoList] = useLocalStorage("todo-items", [])
 
-class App extends Component {
-  constructor(props) {
-    super(props); 
-
-    // Setting up the state
-    this.state = {
-      userInput: "",
-      list: [],
-    };
+  const addItem = e => {
+    e.preventDefault()
+    const trimmedUserInput = userInput.trim();
+    if (trimmedUserInput) {
+      setTodoList(existingItems => [
+        ...existingItems,
+        { name: trimmedUserInput, finished: false },
+      ])
+      setUserInput("")
+    }
   }
 
-  // Set a user input value
-  updateInput(value) {
-    this.setState({
-      userInput: value,
-    });
+  const toggleTask = index => {
+    setTodoList(existingItems =>
+      existingItems.map((item, i) =>
+        index === i ? { ...item, finished: !item.finished } : item
+      )
+    )
   }
 
-  // Add item if user input in not empty 
-  addItem() { 
-    if (this.state.userInput !== "") { 
-        const userInput = { 
-            // Add a random id which is used to delete 
-            id: Math.random(), 
+  const deleteTask = index => {
+    setTodoList(existingItems => existingItems.filter((item, i) => index !== i))
+  }
 
-            // Add a user value to list 
-            value: this.state.userInput, 
-        }; 
+  
+  /* 
 
-        // Update list 
-        const list = [...this.state.list]; 
-        list.push(userInput); 
+  TO-DO: Update the existing to-do item using index 
+  
+  const editTask = index => { 
+    const editedTodo = prompt('Edit the to-do item:'); 
 
-        // reset state 
-        this.setState({ 
-            list, 
-            userInput: "", 
-        }); 
-    } 
-  } 
-
-  // Function to delete item from list use id to delete 
-  deleteItem(key) { 
-      const list = [...this.state.list]; 
-
-      // Filter values and leave value which we need to delete 
-      const updateList = list.filter((item) => item.id !== key); 
-
-      // Update list in state 
-      this.setState({ 
-          list: updateList, 
-      }); 
-  } 
-
-  editItem = (index) => { 
-    const todos = [...this.state.list]; 
-    const editedTodo = prompt('Edit the todo:'); 
     if (editedTodo !== null && editedTodo.trim() !== '') { 
-      let updatedTodos = [...todos] 
-      updatedTodos[index].value= editedTodo 
+      editedTodo = editedTodo.trim(); 
+
+      setTodoList(existingItems => 
+        [
+          ...existingItems, 
+        ])
+
+      updatedTodos[index].value = editedTodo 
       this.setState({ 
         list: updatedTodos, 
     }); 
     } 
-  }
-
-  toogleTask = (index) => {
 
   }
 
-  render() { 
-      return ( 
-          <Container> 
-              <Row 
-                  style={{ 
-                      display: "flex", 
-                      justifyContent: "center", 
-                      alignItems: "center", 
-                      fontSize: "3rem", 
-                      fontWeight: "bolder", 
-                  }} 
-              > 
-                  To-Do List
-              </Row> 
-
-              <hr /> 
-              <Row> 
-                  <Col md={{ span: 5, offset: 4 }}> 
-                      <InputGroup className="mb-3"> 
-                          <FormControl 
-                              placeholder="Add a task..."
-                              size="lg"
-                              value={this.state.userInput} 
-                              onChange={(item) => 
-                                  this.updateInput(item.target.value) 
-                              } 
-                              aria-label="add something"
-                              aria-describedby="basic-addon2"
-                          /> 
-                          <Button 
-                              variant="dark"
-                              className="mt-2"
-                              onClick={() => this.addItem()} 
-                          > 
-                            Add 
-                          </Button>  
-                      </InputGroup> 
-                  </Col> 
-              </Row> 
-              <Row> 
-                  <Col md={{ span: 5, offset: 4 }}> 
-                      <ListGroup> 
-                          {this.state.list.map((item, index) => { 
-                              return ( 
-                                <div key = {index} >  
-                                  <ListGroup.Item 
-                                      variant="dark"
-                                      action 
-                                      style={{display:"flex", 
-                                              justifyContent:'space-between'
-                                    }} 
-                                  >
-                                    <Checkbox
-                                      checked={item.finished}
-                                      onChange={() => toggleTask(index)} 
-                                    >
-                                      {item.value} 
-                                      <span> 
-                                      <Button style={{marginRight:"10px"}} 
-                                      variant = "light"
-                                      onClick={() => this.deleteItem(item.id)}> 
-                                        Delete 
-                                      </Button> 
-                                      <Button variant = "light"
-                                      onClick={() => this.editItem(index)}> 
-                                        Edit 
-                                      </Button> 
-                                      </span>
-                                  </Checkbox>
-                                  </ListGroup.Item> 
-                                </div> 
-                              ); 
-                          })} 
-                      </ListGroup> 
-                  </Col> 
-              </Row> 
-          </Container> 
-      ); 
-  } 
-} 
-
-
-/* 
-function App() { 
-  const [userInput, setUserInput] = useState("")
+  */
 
   return (
     <div className="App">
+      <div className="card">
         <h2 className="heading">To-Do List</h2>
-        <form>
-          <ControlGroup fill={true} vertical={false}>
-            <InputGroup
+
+        <form onSubmit={addItem}>
+          <div className="input-wrapper">
+            <input
+              className="input"
               placeholder="Add a task..."
               value={userInput}
               onChange={e => setUserInput(e.target.value)}
             />
-            <Button type="submit" intent="primary">
+            <button type="submit" className="add-btn">
               Add
-            </Button>
-          </ControlGroup>
+            </button>
+          </div>
         </form>
+
+        <div className="items-list">
+          {todoList.map((item, index) => (
+            <label
+              className="tag"
+              key={index + item.name}
+              htmlFor={`checkbox-${index + item.name}`}
+            >
+              <input
+                id={`checkbox-${index + item.name}`}
+                type="checkbox"
+                checked={item.finished}
+                style={{cursor: "pointer"}}
+                onChange={() => toggleTask(index)}
+              />
+              <span className={`label ${item.finished ? "finished" : ""}`}>
+                {item.name}
+              </span>
+              <button className="btn" style={{marginRight: "10px"}} onClick={() => deleteTask(index)}>
+                <span> Delete </span>
+              </button>
+              <button className="btn" onClick={() => deleteTask(index)}> 
+                <span> Edit </span>
+              </button>
+            </label>
+          ))}
+        </div>
+        
+      </div>
     </div>
   )
-} */
+}
 
-export default App;
+export default App

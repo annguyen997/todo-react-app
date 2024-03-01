@@ -1,15 +1,9 @@
-/* @import "~normalize.css";
-@import "~@blueprintjs/core/lib/css/blueprint.css";
-@import "~@blueprintjs/icons/lib/css/blueprint-icons.css"; */
-
-/* body {
-  margin: 10px auto;
-  max-width: 400px;
+body {
+  margin: 15px auto;
+  max-width: 700px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .heading {
@@ -22,37 +16,99 @@
   flex-direction: column;
 }
 
-.items-list .bp3-tag {
-  margin: 8px 0;
-}
-
-.items-list .bp3-checkbox {
-  margin-left: 4px;
-  margin-bottom: 4px;
-}
-
 .finished {
   text-decoration: line-through;
-} */
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.card {
+  background-color: #fff;
+  border-radius: 3px;
+  padding: 20px;
+  box-shadow: 0 0 0 1px rgb(16 22 26 / 10%), 0 1px 1px rgb(16 22 26 / 20%),
+    0 2px 6px rgb(16 22 26 / 20%);
 }
 
-.application-header { 
-  display: "flex";
-  justify-content: "center";
-  align-items: "center";
-  font-size: "3rem";
-  font-weight: "bolder"
+.input-wrapper {
+  display: flex;
+}
+
+.input {
+  flex-grow: 1;
+  border-right: none;
+  background: #fff;
+  border: none;
+  border-radius: 3px 0 0 3px;
+  box-shadow: 0 0 0 0 rgb(19 124 189 / 0%), 0 0 0 0 rgb(19 124 189 / 0%),
+    inset 0 0 0 1px rgb(16 22 26 / 15%), inset 0 1px 1px rgb(16 22 26 / 20%);
+  color: #182026;
+  font-size: 14px;
+  font-weight: 400;
+  height: 30px;
+  line-height: 30px;
+  outline: none;
+  padding: 0 10px;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 1px #137cbd, 0 0 0 3px rgb(19 124 189 / 30%),
+    inset 0 1px 1px rgb(16 22 26 / 20%);
+}
+
+.add-btn {
+  width: 100px;
+  background-color: #137cbd;
+  background-image: linear-gradient(
+    180deg,
+    hsla(0, 0%, 100%, 0.1),
+    hsla(0, 0%, 100%, 0)
+  );
+  box-shadow: inset 0 0 0 1px rgb(16 22 26 / 40%), inset 0 -1px 0 rgb(16 22 26 /
+          20%);
+  color: #fff;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+  border: none;
+  padding: 5px 10px;
+}
+
+.add-btn:focus {
+  outline: 2px auto rgba(19, 124, 189, 0.6);
+  outline-offset: 2px;
+}
+
+.tag {
+  background-color: rgba(138, 155, 168, 0.2);
+  color: #182026;
+  margin: 8px 0;
+  min-height: 30px;
+  min-width: 30px;
+  padding: 10px 10px;
+  border-radius: 3px;
+  align-items: center;
+  display: flex;
+}
+
+.label {
+  margin-left: 4px;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.btn {
+  border: black;
+  background-color: white;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 4px; 
+  transition-duration: 0.5s;
+  padding: 5px; 
+}
+
+.btn:hover {
+  background-color: lightgray;
+}
+
+.btn span {
+  display: inline-block;
+  opacity: 1;
 }
